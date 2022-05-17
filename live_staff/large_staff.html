@@ -1,0 +1,46 @@
+<body style="margin: 0px">
+  <canvas id="sheet_music">
+  </canvas>
+</body>
+
+<script type="module">
+  import Euclid from 'https://cdn.jsdelivr.net/gh/ethanwillis/euclid_ui/index.js'
+  import MusicNotationPrimitives from 'https://cdn.jsdelivr.net/gh/ethanwillis/music_notation_primitives/index.js'
+
+  // Create new Euclid App.
+  const euclidApp = new Euclid({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    dom_target_id: "sheet_music",
+    ctx_settings: {
+      font: "14px serif"
+    },
+    dev_mode: true
+  })
+
+  // User application code
+  // Define how our staff should look and where it should be placed.
+  let staff_settings = {
+    height: Math.floor(euclidApp.getSceneHeight())/3,
+    width: euclidApp.getSceneWidth(),
+    margin: {
+      left: 10,
+      top: 0,
+      right: 10,
+      bottom: 0,
+    }
+  }
+
+  // Add a new staff component to our Euclid app.
+  euclidApp.add(
+    MusicNotationPrimitives.staff({
+        x: 0,
+        y: Math.floor(euclidApp.getSceneHeight()/3),
+        ...staff_settings
+      })
+  );
+
+  // Render our euclid app.
+  euclidApp.render();
+
+</script>

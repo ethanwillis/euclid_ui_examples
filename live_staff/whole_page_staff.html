@@ -1,0 +1,57 @@
+<body style="margin: 0px">
+  <canvas id="sheet_music">
+  </canvas>
+</body>
+
+<script type="module">
+  import Euclid from 'https://cdn.jsdelivr.net/gh/ethanwillis/euclid_ui/index.js'
+  import MusicNotationPrimitives from 'https://cdn.jsdelivr.net/gh/ethanwillis/music_notation_primitives/index.js'
+
+  // Create new Euclid App.
+  const euclidApp = new Euclid({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    dom_target_id: "sheet_music",
+    ctx_settings: {
+      font: "14px serif"
+    },
+    dev_mode: true
+  })
+
+  // User application code
+  // Define how our staff should look and where it should be placed.
+  // Staves with a height of 50 and various margin settings.
+  let staff_settings = {
+    height: 50,
+    width: euclidApp.getSceneWidth(),
+    margin: {
+      left: 10,
+      top: 10,
+      right: 10,
+      bottom: 0,
+    }
+  }
+
+  // Generate a bunch of Staff components to fill our Euclid app's scene's
+  // vertical space.
+  let staff_total_vertical_space = staff_settings.height + staff_settings.margin.top + staff_settings.margin.bottom;
+  let num_staves = Math.floor(euclidApp.getSceneHeight() / staff_total_vertical_space);
+  let staff_components = [];
+  for(let i = 0; i < num_staves; i++) {
+    staff_components.push(
+      MusicNotationPrimitives.staff({
+        x: 0,
+        y: i*staff_total_vertical_space,
+        ...staff_settings
+      })
+    );
+  }
+
+  // Add each of our staff components to our Euclid app.
+  staff_components.forEach( (staff_component) => {
+      euclidApp.add(staff_component)
+  })
+
+  // Render our Euclid App.
+  euclidApp.render();
+</script>
