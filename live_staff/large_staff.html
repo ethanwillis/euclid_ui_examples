@@ -4,8 +4,11 @@
 </body>
 
 <script type="module">
-  import Euclid from 'https://cdn.jsdelivr.net/gh/ethanwillis/euclid_ui@c83d410/index.js'
-  import MusicNotationPrimitives from 'https://cdn.jsdelivr.net/gh/ethanwillis/music_notation_primitives@618a3b4/index.js'
+  //import Euclid from 'https://cdn.jsdelivr.net/gh/ethanwillis/euclid_ui@c83d410/index.js'
+  //import MusicNotationPrimitives from 'https://cdn.jsdelivr.net/gh/ethanwillis/music_notation_primitives@618a3b4/index.js'
+
+  import Euclid from 'http://localhost/euclid_ui/index.js'
+  import MusicNotationPrimitives from 'http://localhost/music_notation_primitives/index.js'
 
   // Create new Euclid App.
   const euclidApp = new Euclid({
@@ -39,6 +42,14 @@
         ...staff_settings
       })
   );
+
+  euclidApp.add(MusicNotationPrimitives.note({
+    x: 100,
+    y: 100,
+    radius: 10,
+    stem_direction: "up",
+    fill_note: true
+  }))
 
   // Render our euclid app.
   euclidApp.render();
